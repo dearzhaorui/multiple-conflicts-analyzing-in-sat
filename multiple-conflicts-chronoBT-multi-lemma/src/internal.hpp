@@ -587,8 +587,6 @@ struct Internal {
   void analyze_reason (int lit, Clause *, int & open);
   
   void analyze_reason_noBump_reason (int lit, Clause *, int & open);
-  void analyze_literal_discard_higher_glue (int lit, int & open, bool & discard);
-  void analyze_reason_discard_higher_glue (int lit, Clause *, int & open, bool & discard);
   void analyze_literal_for_glue_cheap (int lit, int & open);
   void analyze_reason_for_glue_cheap (int lit, Clause *, int & open);
 

@@ -255,39 +255,6 @@ Internal::analyze_reason (int lit, Clause * reason, int & open) {
 }
 
 inline void
-Internal::analyze_literal_discard_higher_glue (int lit, int & open, bool & discard) {
-  assert (lit);
-  Flags & f = flags (lit);
-  if (f.seen) return;
-  Var & v = var (lit);
-  if (!v.level) return;
-  assert (val (lit) < 0);
-  assert (v.level <= level);
-  Level & l = control[v.level];
-  if (!l.seen.count++) {
-    levels.push_back (v.level);
-
-    if((int)levels.size()-1 >= best_glue_so_far) {
-      discard = true;
-      return;
-    }
-  }
-  f.seen = true;
-  analyzed.push_back (lit);
-  if (v.level == level) open++;
-}
-
-inline void
-Internal::analyze_reason_discard_higher_glue (int lit, Clause * reason, int & open, bool & discard) {
-  assert (reason);
-  for (const auto & other : *reason)
-    if (other != lit) {
-      analyze_literal_discard_higher_glue (other, open, discard);
-      if(discard) break;
-    }
-}
-
-inline void
 Internal::analyze_literal_for_glue_cheap (int lit, int & open) {
   assert (lit);
   Flags & f = flags (lit);
